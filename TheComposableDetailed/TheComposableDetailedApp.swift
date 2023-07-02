@@ -13,11 +13,11 @@ struct TheComposableDetailedApp: App {
   var body: some Scene {
     WindowGroup {
       ContentView(store:Store(
-        initialState: ProductDomain.State(
-          product: Product.sample[0]
-        ),
-        reducer: ProductDomain.reducer,
-        environment: ProductDomain.Environment()
+        initialState: ProductListDomain.State(),
+        reducer: ProductListDomain.reducer,
+        environment: ProductListDomain.Environment(fetchProducts: {
+          Product.sample
+        })
       ))
     }
   }

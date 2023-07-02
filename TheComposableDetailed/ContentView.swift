@@ -9,23 +9,25 @@ import SwiftUI
 import ComposableArchitecture
 
 struct ContentView: View {
-  let store : Store<ProductDomain.State, ProductDomain.Action>
+  let store : Store<ProductListDomain.State, ProductListDomain.Action>
   
   var body: some View {
     WithViewStore(store){ viewStore in
-      ProductCell(store: self.store)
+      ProductListView(store: self.store)
     }
   }
 }
 
+
+
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
     ContentView(store:Store(
-      initialState: ProductDomain.State(
-        product: Product.sample[0]
-      ),
-      reducer: ProductDomain.reducer,
-      environment: ProductDomain.Environment()
+      initialState: ProductListDomain.State(),
+      reducer: ProductListDomain.reducer,
+      environment: ProductListDomain.Environment(fetchProducts:{
+        Product.sample
+      })
     ))
   }
 }
