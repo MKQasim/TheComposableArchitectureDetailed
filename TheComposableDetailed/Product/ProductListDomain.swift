@@ -13,12 +13,14 @@ struct ProductListDomain {
   
   struct State : Equatable {
     var productList : IdentifiedArrayOf<ProductDomain.State> = []
+    var shouldOpenCart = false
   }
   
   enum Action : Equatable{
     case fetchProducts
     case fetchProductResponse(TaskResult<[Product]>)
     case product(id:ProductDomain.State.ID,action: ProductDomain.Action)
+    case setCart(isPresented:Bool)
   }
   
   struct Environment {
@@ -54,9 +56,11 @@ struct ProductListDomain {
         return .none
       case .product:
         return .none
-
+      case .setCart(let isPresented):
+        state.shouldOpenCart = isPresented
+        return .none
       }
       return .none
     }
-  )
+  ).debug()
 }
