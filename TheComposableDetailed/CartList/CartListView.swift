@@ -18,7 +18,8 @@ struct CartListView: View {
             ForEachStore(
               self.store.scope(
                 state: \.cartItems,
-                action:CartListDomain.Action.cartItem(id:action:)
+                action:CartListDomain.Action
+                  .cartItem(id:action:)
              )
             ) {
               CartCell(store: $0)

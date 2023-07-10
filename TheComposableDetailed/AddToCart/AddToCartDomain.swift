@@ -9,31 +9,29 @@ import Foundation
 import ComposableArchitecture
 
 struct AddToCartDomain {
-  struct State : Equatable {
+  struct State: Equatable {
     var count = 0
   }
   
-  enum Action : Equatable {
-    case didTapPlusAction
-    case didTapMinusAction
+  enum Action: Equatable {
+    case didTapPlusButton
+    case didTapMinusButton
   }
   
-  struct Environment : Equatable {
-    
+  struct Environment {
+      // Future Dependencies...
   }
   
-  static let reducer = Reducer<State,Action,Environment>{
-    state , action , environment in
+  static let reducer = Reducer<
+    State, Action, Environment
+  > { state, action, environment in
     switch action {
-    case .didTapPlusAction :
-    
+    case .didTapPlusButton:
       state.count += 1
-      return .none
-    case .didTapMinusAction :
-     
+      return Effect.none
+    case .didTapMinusButton:
       state.count -= 1
-      return .none  
-    default: break
+      return Effect.none
     }
-  }
+  }.debug()
 }

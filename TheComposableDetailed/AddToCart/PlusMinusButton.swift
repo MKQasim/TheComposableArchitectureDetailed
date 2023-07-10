@@ -13,7 +13,7 @@ struct PlusMinusButton: View {
   var body: some View {
     WithViewStore(store){ viewStore in
       Button {
-        viewStore.send(.didTapPlusAction)
+        viewStore.send(.didTapPlusButton)
       } label: {
         Text("+")
           .padding(10)
@@ -26,7 +26,7 @@ struct PlusMinusButton: View {
         .padding(5)
       
       Button {
-        viewStore.send(.didTapMinusAction)
+        viewStore.send(.didTapMinusButton)
       } label: {
         Text("-")
           .padding(10)

@@ -12,8 +12,6 @@ struct CartListDomain {
   
   struct State: Equatable {
     var cartItems: IdentifiedArrayOf<CartItemDomain.State> = []
-    
-    
   }
   
   enum Action: Equatable {
@@ -34,12 +32,15 @@ struct CartListDomain {
     .init { state, action, environment in
       switch action {
       case .didPressCloseButton:
-        
         return .none
-      case .cartItem:
-        return .none
+      case .cartItem(let id, let action):
+        switch action {
+        case .deleteCartItem:
+          state.cartItems.remove(id: id)
+          return .none
+        }
       }
-    }
+    }.debug()
   )
 }
 

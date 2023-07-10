@@ -20,7 +20,7 @@ struct AddToCartButton : View {
       }
       else{
         Button {
-          viewStore.send(.didTapPlusAction)
+          viewStore.send(.didTapPlusButton)
         } label: {
           Text("ADD to Cart")
             .padding(10)

@@ -1,9 +1,9 @@
-  //
-  //  ProductListView.swift
-  //  TheComposableDetailed
-  //
-  //  Created by KamsQue on 02/07/2023.
-  //
+//
+//  ProductListView.swift
+//  TheComposableDetailed
+//
+//  Created by KamsQue on 02/07/2023.
+//
 
 import SwiftUI
 import ComposableArchitecture
@@ -32,7 +32,7 @@ struct ProductListView : View{
         .toolbar{
           ToolbarItem(placement: .navigationBarTrailing) {
             Button {
-              viewStore.send(.setCart(isPresented: true))
+              viewStore.send(.setCartView(isPresented: true))
             } label: {
               Text("Go to Cart")
             }
@@ -41,7 +41,7 @@ struct ProductListView : View{
         .sheet(
           isPresented: viewStore.binding(
             get: \.shouldOpenCart,
-            send:ProductListDomain.Action.setCart(isPresented:)
+            send:ProductListDomain.Action.setCartView(isPresented:)
           )
         ) {
           

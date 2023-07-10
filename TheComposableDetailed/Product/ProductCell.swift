@@ -1,9 +1,9 @@
-  //
-  //  ProductCell.swift
-  //  TheComposableDetailed
-  //
-  //  Created by KamsQue on 01/07/2023.
-  //
+//
+//  ProductCell.swift
+//  TheComposableDetailed
+//
+//  Created by KamsQue on 01/07/2023.
+//
 
 import SwiftUI
 import ComposableArchitecture
