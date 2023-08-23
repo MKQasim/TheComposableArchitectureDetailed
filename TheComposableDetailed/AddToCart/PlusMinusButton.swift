@@ -41,11 +41,11 @@ struct PlusMinusButton: View {
 
 struct PlusMinusButton_Previews: PreviewProvider {
   static var previews: some View {
-    PlusMinusButton(store: Store(
-      initialState: AddToCartDomain.State(),
-      reducer: AddToCartDomain.reducer,
-      environment: AddToCartDomain.Environment()
-    )
+    PlusMinusButton(
+      store: Store(
+        initialState: AddToCartDomain.State(),
+        reducer: AddToCartDomain()
+      )
     )
   }
 }

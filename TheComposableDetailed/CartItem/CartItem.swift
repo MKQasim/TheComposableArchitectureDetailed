@@ -9,8 +9,22 @@ import SwiftUI
 import ComposableArchitecture
 
 struct CartItem : Equatable{
-  let product : Product
-  let quantity : Int
+  var product : Product
+  var quantity : Int
+}
+
+extension CartItem : Encodable{
+  
+  private enum CartItemCodingKey : String , CodingKey {
+      case productId
+      case quantity
+  }
+ 
+  func encode(to encoder: Encoder) throws {
+    var container = try encoder.container(keyedBy: CartItemCodingKey.self)
+    try container.encode(product.id, forKey: CartItemCodingKey.productId)
+    try container.encode(quantity, forKey: CartItemCodingKey.quantity)
+  }
 }
 
 extension CartItem{

@@ -12,13 +12,12 @@ import ComposableArchitecture
 struct TheComposableDetailedApp: App {
   var body: some Scene {
     WindowGroup {
-      ContentView(store:Store(
-        initialState: ProductListDomain.State(),
-        reducer: ProductListDomain.reducer,
-        environment: ProductListDomain.Environment(fetchProducts: {
-          Product.sample
-        })
-      ))
+      RootView(
+        store: Store(
+          initialState: RootDomain.State(),
+          reducer: RootDomain.live
+        )
+      )
     }
   }
 }

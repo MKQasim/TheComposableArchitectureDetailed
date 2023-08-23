@@ -34,7 +34,45 @@ struct CartListView: View {
                 Text("Close")
               }
             }
+          } .onAppear {
+            viewStore.send(.getTotalPrice)
           }
+          .safeAreaInset(edge: .bottom) {
+            Button {
+              viewStore.send(.didPressPayButton)
+            } label: {
+              HStack(alignment: .center) {
+                Spacer()
+                Text("Pay \(viewStore.totalPriceString)")
+                  .font(.custom("AmericanTypewriter", size: 30))
+                  .foregroundColor(.white)
+                
+                Spacer()
+              }
+              
+            }
+            .frame(maxWidth: .infinity, minHeight: 60)
+            .background(
+              viewStore.isPayButtonDisable
+              ? .gray
+              : .blue
+            )
+            .cornerRadius(10)
+            .padding()
+            .disabled(viewStore.isPayButtonDisable)
+          }
+          .alert(
+            self.store.scope(state: \.confirmationAlert),
+            dismiss: .didCancelConfirmation
+          )
+          .alert(
+            self.store.scope(state: \.successAlert),
+            dismiss: .dismissSuccessAlert
+          )
+          .alert(
+            self.store.scope(state: \.errorAlert),
+            dismiss: .dismissErrorAlert
+          )
         }
 
       }
@@ -57,8 +95,10 @@ struct CartListView_Previews: PreviewProvider {
               }
           )
         ),
-        reducer: CartListDomain.reducer,
-        environment: CartListDomain.Environment()
+        reducer: CartListDomain(sendOrder: { cartItem in
+          "OK"
+        })
+        
       )
     )
   }

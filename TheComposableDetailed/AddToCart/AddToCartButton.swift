@@ -39,8 +39,7 @@ struct AddToCartButton_Previews: PreviewProvider {
     AddToCartButton(
       store: Store(
         initialState: AddToCartDomain.State(),
-        reducer: AddToCartDomain.reducer,
-        environment: AddToCartDomain.Environment()
+        reducer: AddToCartDomain()
       )
     )
   }

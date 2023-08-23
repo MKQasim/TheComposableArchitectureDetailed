@@ -8,7 +8,7 @@
 import Foundation
 import ComposableArchitecture
 
-struct ProductDomain {
+struct ProductDomain  : ReducerProtocol {
   struct State: Equatable, Identifiable {
     let id: UUID
     let product: Product
@@ -26,18 +26,11 @@ struct ProductDomain {
   
   struct Environment {}
   
-  static let reducer = Reducer<
-    State, Action, Environment
-  >.combine(
-    AddToCartDomain.reducer
-      .pullback(
-        state: \.addToCartState,
-        action: /ProductDomain.Action.addToCart,
-        environment: { _ in
-          AddToCartDomain.Environment()
-        }
-      ),
-    .init { state, action, environment in
+  var body: some ReducerProtocol<State, Action> {
+    Scope(state: \.addToCartState, action: /ProductDomain.Action.addToCart) {
+      AddToCartDomain()
+    }
+    Reduce { state, action in
       switch action {
       case .addToCart(.didTapPlusButton):
         return .none
@@ -46,6 +39,5 @@ struct ProductDomain {
         return .none
       }
     }
-  )
-  
+  }
 }

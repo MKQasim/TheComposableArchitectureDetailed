@@ -8,7 +8,8 @@
 import Foundation
 import ComposableArchitecture
 
-struct AddToCartDomain {
+struct AddToCartDomain : ReducerProtocol{
+
   struct State: Equatable {
     var count = 0
   }
@@ -17,14 +18,8 @@ struct AddToCartDomain {
     case didTapPlusButton
     case didTapMinusButton
   }
-  
-  struct Environment {
-      // Future Dependencies...
-  }
-  
-  static let reducer = Reducer<
-    State, Action, Environment
-  > { state, action, environment in
+
+  func reduce(into state: inout State, action: Action) -> ComposableArchitecture.EffectTask<Action> {
     switch action {
     case .didTapPlusButton:
       state.count += 1
@@ -33,5 +28,5 @@ struct AddToCartDomain {
       state.count -= 1
       return Effect.none
     }
-  }.debug()
+  }
 }

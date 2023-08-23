@@ -7,14 +7,33 @@
 
 import Foundation
 struct Product: Equatable, Identifiable {
-  let id: Int
-  let title: String
-  let price: Double // Update to Currency
-  let description: String
-  let category: String // Update to enum
-  let imageString: String
+  var id: Int
+  var title: String
+  var price: Double
+  var description: String
+  var category: String 
+  var imageString: String
+}
+extension Product: Decodable {
   
-    // Add rating later...
+  enum ProductKeys :  String ,CodingKey{
+    case id
+    case title
+    case price
+    case description
+    case category
+    case image
+  }
+  
+  init(from decoder: Decoder) throws {
+    let values = try decoder.container(keyedBy: ProductKeys.self)
+    id = try values.decodeIfPresent(Int.self, forKey: ProductKeys.id) ?? 0
+    title = try values.decodeIfPresent(String.self, forKey: ProductKeys.title) ?? ""
+    price = try values.decodeIfPresent(Double.self, forKey: ProductKeys.price) ?? 0.0
+    description = try values.decodeIfPresent(String.self, forKey: ProductKeys.description) ?? ""
+    category = try values.decodeIfPresent(String.self, forKey: ProductKeys.category) ?? ""
+    imageString = try values.decodeIfPresent(String.self, forKey: ProductKeys.image) ?? ""
+  }
 }
 
 extension Product {

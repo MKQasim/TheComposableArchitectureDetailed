@@ -16,10 +16,17 @@ struct ProductCell : View {
   var body : some View {
     WithViewStore(self.store) { viewStore in
       VStack{
-        Image(viewStore.product.imageString
-        ).resizable()
-          .aspectRatio(contentMode: .fit)
-          .frame(height: 300)
+        AsyncImage(
+          url: URL(string: viewStore.product.imageString)
+        ) { image in
+          image
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .frame(height: 300)
+        } placeholder: {
+          ProgressView()
+            .frame(height: 300)
+        }
         VStack(alignment: .leading){
           Text(viewStore.product.title)
           HStack{
@@ -42,12 +49,13 @@ struct ProductCell_Previews: PreviewProvider {
     ProductCell(
       store: Store(
         initialState: ProductDomain.State(
-          id: UUID(), product: Product.sample[0]
+          id: UUID(),
+          product: Product.sample[0]
         ),
-        reducer: ProductDomain.reducer,
-        environment: ProductDomain.Environment()
+        reducer: ProductDomain()
       )
     )
     .previewLayout(.fixed(width: 300, height: 300))
   }
 }
+

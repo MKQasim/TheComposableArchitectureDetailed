@@ -20,14 +20,20 @@ struct ContentView: View {
 
 
 
-struct ContentView_Previews: PreviewProvider {
-  static var previews: some View {
-    ContentView(store:Store(
-      initialState: ProductListDomain.State(),
-      reducer: ProductListDomain.reducer,
-      environment: ProductListDomain.Environment(fetchProducts:{
-        Product.sample
-      })
-    ))
-  }
-}
+//struct ContentView_Previews: PreviewProvider {
+//  static var previews: some View {
+//    ContentView(store:Store(
+//      initialState: ProductListDomain.State(),
+//      reducer: ProductListDomain(fetchProducts: {
+//        
+//      }, sendOrder: { cartItem in
+//        
+//      }, uuid: {
+//        print("")
+//      }),
+//      environment: ProductListDomain.Environment(
+//        fetchProducts: APIClient.live.fetchProducts ,
+//        sendOrder: APIClient.live.sendOrder)
+//    ))
+//  }
+//}
